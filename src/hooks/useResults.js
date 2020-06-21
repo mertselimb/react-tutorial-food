@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import yelp from "../api/yelp";
 
-export default () => {
+export default (location) => {
   const [results, setResults] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -11,7 +11,8 @@ export default () => {
         params: {
           limit: 50,
           term: searchTerm,
-          location: "Istanbul",
+          latitude: location[0],
+          longitude: location[1],
         },
       });
       setResults(response.data.businesses);
@@ -21,7 +22,7 @@ export default () => {
   };
 
   useEffect(() => {
-    searchApi("kebab");
+    searchApi("Hamburger");
   }, []);
 
   return [searchApi, results, errorMessage];
